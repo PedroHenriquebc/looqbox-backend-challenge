@@ -8,12 +8,15 @@ import org.springframework.web.client.RestTemplate;
 
 import com.projects.pokemonchallenge.model.Pokedex;
 import com.projects.pokemonchallenge.model.Pokemon;
+import com.projects.pokemonchallenge.util.Ordenation;
 
 @Service
 public class PokemonService {
 
 	@Autowired
 	RestTemplate template = new RestTemplate();
+	
+	Ordenation ordenation = new Ordenation();
 
 	private String url = "https://pokeapi.co/api/v2/pokemon/";
 
@@ -35,46 +38,15 @@ public class PokemonService {
 		}
 		return filteredList;
 	}
-
-	//ORDENA LISTA DE POKEMONS POR ORDEM ALFABETICA UTILIZANDO BUBBLESORT
-	public ArrayList<Pokemon> alphabeticalOrdering(ArrayList<Pokemon> pokemonsList) {
-		for (int i = 0; i < pokemonsList.size() - 1; i++) {
-			boolean estaOrdenado = true;
-			for (int j = 0; j < pokemonsList.size() - 1 - i; j++) {
-				//Compara se o nome na posição j é maior alfabeticamente que o nome na posição j + 1
-				if (pokemonsList.get(j).getName().compareTo(pokemonsList.get(j + 1).getName()) > 0) {
-					//Troca o nome da posição j para j + 1 e vice-versa
-					Pokemon aux = pokemonsList.get(j);
-					pokemonsList.set(j, pokemonsList.get(j + 1));
-					pokemonsList.set(j + 1, aux);
-					estaOrdenado = false;
-				}
-			}
-			 if(estaOrdenado)
-			        break;
-		}
-		return pokemonsList;
+	
+	public ArrayList<Pokemon> sortByAlphabet(ArrayList<Pokemon> pokemonsList) {
+		return ordenation.quickSortAlphabetical(pokemonsList,  0, pokemonsList.size() - 1);
 	}
 	
-	//ORDENA LISTA DE POKEMONS POR TAMANHO UTILIZANDO BUBBLESORT
-	public ArrayList<Pokemon> lengthOrdering(ArrayList<Pokemon> pokemonsList){
-		for (int i = 0; i < pokemonsList.size() - 1; i++) {
-			boolean estaOrdenado = true;
-			//Compara se o tamanho do nome na posição j é maior que o do nome na posição j + 1
-			for (int j = 0; j < pokemonsList.size() - 1 - i; j++) {
-				if (pokemonsList.get(j).getName().length() > pokemonsList.get(j + 1).getName().length()) {
-					//Troca o nome da posição j para j + 1 e vice-versa
-					Pokemon aux = pokemonsList.get(j);
-					pokemonsList.set(j, pokemonsList.get(j + 1));
-					pokemonsList.set(j + 1, aux);
-					estaOrdenado = false;
-				}
-			}
-			 if(estaOrdenado)
-			        break;
-		}
-		return pokemonsList;
+	public ArrayList<Pokemon> sortByLength(ArrayList<Pokemon> pokemonsList){
+		return ordenation.quickSortLength(pokemonsList, 0, pokemonsList.size() - 1);
 	}
+	
 
 	//INSERE MARCAÇÃO NA SUBSTRING EM UM NOME DE POKEMON
 	public ArrayList<Pokemon> highlightSubstring(ArrayList<Pokemon> pokemonsList, String substring) {
@@ -92,10 +64,10 @@ public class PokemonService {
 	}
 	
 	//RETORNA LISTA COM POKEMONS FILTRADOS, ORDENADOS E COM MARCAÇÃO
-	public ArrayList<Pokemon> sortedPokedex(ArrayList<Pokemon> pokemonsList, String substring){
+	public ArrayList<Pokemon> organizePokemons(ArrayList<Pokemon> pokemonsList, String substring){
 		ArrayList<Pokemon> filteredList = substringFilter(pokemonsList, substring);
-		ArrayList<Pokemon> alphabeticalOrdened = alphabeticalOrdering(filteredList);
-		ArrayList<Pokemon> lengthOrdened = lengthOrdering(alphabeticalOrdened);
+		ArrayList<Pokemon> alphabeticalOrdened = sortByAlphabet(filteredList);
+		ArrayList<Pokemon> lengthOrdened = sortByLength(alphabeticalOrdened);
 		ArrayList<Pokemon> sortedList = highlightSubstring(lengthOrdened, substring);
 		return sortedList;
 		

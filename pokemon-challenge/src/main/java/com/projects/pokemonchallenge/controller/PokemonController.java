@@ -21,6 +21,6 @@ public class PokemonController {
 	@GetMapping
 	public ArrayList<Pokemon> getPokedex(@RequestParam String q) {
 		ArrayList<Pokemon> pokemonsList = pokemonService.getAllPokemons();
-		return pokemonService.sortedPokedex(pokemonsList, q);
+		return pokemonService.organizePokemons(pokemonsList, q);
 	}
 }

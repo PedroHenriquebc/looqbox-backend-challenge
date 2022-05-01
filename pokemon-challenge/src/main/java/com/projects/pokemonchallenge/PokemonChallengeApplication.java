@@ -8,6 +8,6 @@ public class PokemonChallengeApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PokemonChallengeApplication.class, args);
-
+		
 	}
 }
