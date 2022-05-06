@@ -31,7 +31,7 @@ public class PokemonServiceTest {
 	@Test
 	public void getAllPokemonsTest() {
 		assertNotNull(pokemonService.getAllPokemons());
-		assertEquals(pokemonService.getAllPokemons().size(), 20);
+		assertEquals(pokemonService.getAllPokemons().size(), 1126);
 		assertEquals(pokemonService.getAllPokemons().get(0).getName(), "bulbasaur");
 		assertEquals(pokemonService.getAllPokemons().get(19).getName(), "raticate");
 	}
