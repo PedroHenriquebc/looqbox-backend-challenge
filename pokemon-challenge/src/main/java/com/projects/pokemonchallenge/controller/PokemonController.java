@@ -16,7 +16,7 @@ import com.projects.pokemonchallenge.service.PokemonService;
 public class PokemonController {
 
 	@Autowired
-	PokemonService pokemonService = new PokemonService();
+	private PokemonService pokemonService = new PokemonService();
 
 	@GetMapping
 	public ArrayList<Pokemon> getPokedex(@RequestParam String q) {

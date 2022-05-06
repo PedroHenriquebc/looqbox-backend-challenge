@@ -10,4 +10,9 @@ public class Configuration {
 	public RestTemplate getRestTemplate() {
 		return new RestTemplate();
 	}
+	
+	@Bean
+	public Ordenation ordenation() {
+		return new Ordenation();
+	}
 }

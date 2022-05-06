@@ -1,24 +1,24 @@
 package com.projects.pokemonchallenge.service;
 
-import java.util.ArrayList;
-
+import com.projects.pokemonchallenge.model.Pokedex;
+import com.projects.pokemonchallenge.model.Pokemon;
+import com.projects.pokemonchallenge.util.Ordenation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.projects.pokemonchallenge.model.Pokedex;
-import com.projects.pokemonchallenge.model.Pokemon;
-import com.projects.pokemonchallenge.util.Ordenation;
+import java.util.ArrayList;
 
 @Service
 public class PokemonService {
 
 	@Autowired
-	RestTemplate template = new RestTemplate();
+	private RestTemplate template = new RestTemplate();
 	
-	Ordenation ordenation = new Ordenation();
+	@Autowired
+	private Ordenation ordenation = new Ordenation();
 
-	private String url = "https://pokeapi.co/api/v2/pokemon/";
+	private String url = "https://pokeapi.co/api/v2/pokemon?limit=10000";
 
 	//CONSOME API E RETORNA OS POKEMONS LIDOS NUMA LISTA
 	public ArrayList<Pokemon> getAllPokemons() {
