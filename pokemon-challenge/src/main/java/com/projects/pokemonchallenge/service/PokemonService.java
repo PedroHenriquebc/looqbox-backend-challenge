@@ -13,10 +13,10 @@ import java.util.ArrayList;
 public class PokemonService {
 
 	@Autowired
-	private RestTemplate template = new RestTemplate();
+	private RestTemplate template;
 	
 	@Autowired
-	private Ordenation ordenation = new Ordenation();
+	private Ordenation ordenation;
 
 	private String url = "https://pokeapi.co/api/v2/pokemon?limit=10000";
 
